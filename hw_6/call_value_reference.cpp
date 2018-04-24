@@ -14,15 +14,11 @@
 using namespace std;
 
 string change_name_reference(string& name, multimap<string, string> states_map){
-    string new_name = states_map.find(name)->second;
-    name = new_name;
-    return name;
+    return states_map.find(name)->second;
 }
 
 string change_name_value(string name, multimap<string, string> states_map){
-    string new_name = states_map.find(name)->second;
-    name = new_name;
-    return name;
+    return states_map.find(name)->second;
 }
 
 
@@ -39,6 +35,7 @@ int main() {
     }
 
     clock_t tStart = clock();
+    bool row_readable;
 
 
     printf("Start of reference call");
@@ -47,12 +44,11 @@ int main() {
     io::CSVReader<1> in2("Parking_Violations_Issued_-_Fiscal_Year_2018.csv");
     in2.read_header(io::ignore_extra_column, "Registration State");
     string registration_state1;
-    string name1;
     int j=0;
     while(j < 8643265){
         try {
-            bool row_readable = in2.read_row(registration_state1);
-            name1 = change_name_reference(registration_state1, states_map);
+            row_readable = in2.read_row(registration_state1);
+            change_name_reference(registration_state1, states_map);
             j++;
         } catch(io::error::too_many_columns e1) {
             j++;
@@ -69,12 +65,11 @@ int main() {
     io::CSVReader<1> in3("Parking_Violations_Issued_-_Fiscal_Year_2018.csv");
     in3.read_header(io::ignore_extra_column, "Registration State");
     string registration_state2;
-    string name2;
     int k=0;
     while(k < 8643265){
         try {
-            bool row_readable = in3.read_row(registration_state2);
-            name2 = change_name_value(registration_state2, states_map);
+            row_readable = in3.read_row(registration_state2);
+            change_name_value(registration_state2, states_map);
             k++;
         } catch(io::error::too_many_columns e1) {
             k++;
